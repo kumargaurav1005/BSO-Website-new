@@ -1,0 +1,10 @@
+services:
+  website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bso-website
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    init: true
