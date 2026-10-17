@@ -1,0 +1,132 @@
+/* BSO background system — original, local sports geometry. */
+:root {
+  --surface-white: #ffffff;
+  --surface-soft: #f7f8fa;
+  --surface-navy: #0a2333;
+  --surface-burgundy: #44152b;
+}
+body { background: var(--surface-white); }
+.portfolio-section {
+  background: url("/patterns/field-lines.svg") right bottom / 620px auto no-repeat, var(--surface-soft);
+}
+.page-hero, .feature-band {
+  background: url("/patterns/stadium-dark.svg") right bottom / 760px auto no-repeat, var(--surface-navy);
+}
+.editorial-band {
+  background: url("/patterns/stadium-dark.svg") right center / 900px auto no-repeat, #0a2333;
+}
+.teaser {
+  background: url("/patterns/stadium-dark.svg") right bottom / 650px auto no-repeat, var(--surface-burgundy);
+}
+.value, .person .detail, .contact-form, .about-card {
+  background: url("/patterns/corner-mark.svg") right bottom / 140px auto no-repeat, #fff;
+}
+.value, .person, .contact-form { border: 1px solid #e3e7eb; }
+.value { border-top: 2px solid #c98a3d; }
+.person { background: #fff; }
+.product-copy {
+  background: url("/patterns/corner-mark.svg") right bottom / 130px auto no-repeat;
+}
+.portfolio-feature:after, .portfolio-side a:after {
+  background: url("/patterns/stadium-dark.svg") right bottom / 330px auto no-repeat,
+    linear-gradient(180deg, transparent 25%, rgba(4,17,29,.45) 58%, rgba(4,17,29,.94) 100%);
+}
+.hero-slide:before {
+  background: linear-gradient(90deg, rgba(4,17,29,.94) 0%, rgba(6,23,37,.78) 42%, rgba(6,23,37,.26) 76%, rgba(6,23,37,.12) 100%);
+}
+.capability-list > div {
+  background: linear-gradient(110deg, transparent 50%, rgba(227,24,55,.055) 50%);
+  background-size: 240% 100%;
+  background-position: 0 0;
+  transition: background-position .45s ease;
+}
+.capability-list > div:hover { background-position: 100% 0; }
+@media (max-width: 760px) {
+  .portfolio-section { background-size: 340px auto; }
+  .page-hero, .feature-band, .teaser { background-size: 420px auto; }
+  .hero-slide:before { background: linear-gradient(90deg, rgba(4,17,29,.94), rgba(6,23,37,.66)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .capability-list > div { transition: none; }
+}
+
+/* Shared About, Products and Team banner. */
+.diagonal-banner {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 520px;
+  display: grid;
+  grid-template-columns: 62% 38%;
+  align-items: stretch;
+  color: #17181a;
+  background: repeating-linear-gradient(90deg, transparent 0 43px, rgba(30,30,30,.075) 43px 44px), #f6f3eb;
+}
+.diagonal-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: repeating-linear-gradient(90deg, transparent 0 43px, rgba(30,30,30,.06) 43px 44px), #e5dfd3;
+  clip-path: polygon(14% 100%, 100% 0, 100% 100%);
+}
+.diagonal-banner-copy {
+  align-self: center;
+  padding: 84px 40px 90px max(24px, calc((100vw - 1180px) / 2));
+}
+.diagonal-banner-copy .overline { color: #8e492e; }
+.diagonal-banner-copy h1 {
+  max-width: 720px;
+  font-size: clamp(2.6rem, 4.1vw, 4.4rem);
+  letter-spacing: -.055em;
+  line-height: 1.1;
+  margin: 18px 0 24px;
+}
+.diagonal-banner-copy p {
+  max-width: 720px;
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: #252525;
+}
+.diagonal-banner-image {
+  min-height: 520px;
+  clip-path: polygon(0 21%, 51% 0, 100% 0, 100% 79%, 49% 100%, 0 100%);
+}
+.diagonal-banner-image img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 900px) {
+  .diagonal-banner { grid-template-columns: 58% 42%; min-height: 440px; }
+  .diagonal-banner-copy { padding: 60px 26px; }
+  .diagonal-banner-image { min-height: 440px; }
+}
+@media (max-width: 600px) {
+  .diagonal-banner { grid-template-columns: 1fr; }
+  .diagonal-banner-copy { padding: 56px 24px 38px; }
+  .diagonal-banner-image { min-height: 0; height: 280px; clip-path: polygon(0 15%, 50% 0, 100% 0, 100% 85%, 50% 100%, 0 100%); }
+  .diagonal-banner-copy h1 { font-size: 2.7rem; }
+}
+
+/* Footer: stadium arcs, faint vertical lines and a warm diagonal accent. */
+.footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    url("/patterns/stadium-dark.svg") right bottom / 820px auto no-repeat,
+    repeating-linear-gradient(90deg, transparent 0 87px, rgba(255,255,255,.025) 87px 88px),
+    linear-gradient(115deg, #061724 0%, #0b2838 65%, #122c3a 100%);
+}
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(201,138,61,.035), rgba(201,138,61,.1));
+  clip-path: polygon(66% 100%, 100% 20%, 100% 100%);
+}
+.footer > .wrap { position: relative; }
+.footer-bottom { border-top-color: rgba(185,204,214,.22); }
+@media (max-width: 600px) {
+  .footer { background-size: 520px auto, auto, auto; }
+}
