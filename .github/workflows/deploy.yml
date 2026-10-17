@@ -1,0 +1,88 @@
+
+name: Deploy BSO Website
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "frontend/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ghcr.io/kumargaurav1005/bso-website
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          push: true
+          tags: |
+            ghcr.io/kumargaurav1005/bso-website:latest
+            ghcr.io/kumargaurav1005/bso-website:${{ github.sha }}
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1
+        env:
+          GHCR_USER: ${{ secrets.GHCR_USER }}
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          envs: GHCR_USER,GHCR_TOKEN
+          script: |
+            set -e
+
+            echo "$GHCR_TOKEN" | sudo docker login ghcr.io \
+              -u "$GHCR_USER" --password-stdin
+
+            sudo docker pull ghcr.io/kumargaurav1005/bso-website:latest
+
+            sudo docker rm -f bso-website || true
+
+            sudo docker run -d \
+              --name bso-website \
+              --restart unless-stopped \
+              --init \
+              -p 127.0.0.1:3000:3000 \
+              ghcr.io/kumargaurav1005/bso-website:latest
+
+            for i in $(seq 1 30); do
+              if curl -fsS http://127.0.0.1:3000/ > /dev/null; then
+                echo "Website health check passed"
+                break
+              fi
+              if [ "$i" -eq 30 ]; then
+                echo "Website health check failed"
+                sudo docker logs --tail 100 bso-website
+                exit 1
+              fi
+              sleep 2
+            done
+
+            sudo docker logout ghcr.io || true
