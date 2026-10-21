@@ -10,15 +10,15 @@ export default function Page() {
         eyebrow="Our products"
         title="Technology with a role to play."
         description="Three development concepts focused on capturing different kinds of sporting evidence."
-        image="/products-technology.jpg"
+        image="/products-technology.webp"
         imageAlt="Close-up of electronic circuitry illustrating technology development"
       />
       <section className="products wrap">
         <div className="product-list">
           <article className="product" id="thirdeye">
             <div className="product-image">
-              <img
-                src="/thirdeye-scene.png"
+              <img srcSet="/thirdeye-scene-720.webp 720w, /thirdeye-scene.webp 1086w" sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" decoding="async" width={1086} height={1448}
+                src="/thirdeye-scene.webp"
                 alt="Cricket play recorded on a smartphone"
               />
             </div>
@@ -38,7 +38,7 @@ export default function Page() {
           </article>
           <article className="product" id="smartball">
             <div className="product-image">
-              <img src="/smartball-scene.png" alt="Cricket ball on a pitch" />
+              <img srcSet="/smartball-scene-720.webp 720w, /smartball-scene.webp 1086w" sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" decoding="async" width={1086} height={1448} src="/smartball-scene.webp" alt="Cricket ball on a pitch" />
             </div>
             <div className="product-copy">
               <div className="product-index">02 / Connected equipment</div>
@@ -56,8 +56,8 @@ export default function Page() {
           </article>
           <article className="product" id="birdeye">
             <div className="product-image">
-              <img
-                src="/birdeye-scene.png"
+              <img srcSet="/birdeye-scene-720.webp 720w, /birdeye-scene.webp 1086w" sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" decoding="async" width={1086} height={1448}
+                src="/birdeye-scene.webp"
                 alt="Badminton rally viewed from above"
               />
             </div>

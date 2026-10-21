@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import type { CSSProperties } from "react";
+
 const slides = [
   {
     eyebrow: "Bharat Sports Olymps",
@@ -9,7 +9,8 @@ const slides = [
     copy: "A grassroots sports ecosystem designed to give athletes a credible record of competition and a clearer path to recognition.",
     href: "/about/",
     cta: "Discover our story",
-    image: "/stadium.png",
+    image: "/stadium.webp",
+    width: 1600, height: 900,
   },
   {
     eyebrow: "ThirdEye AI · In development",
@@ -18,7 +19,8 @@ const slides = [
     copy: "Exploring smartphone-based cricket review with on-device video and audio analysis.",
     href: "/products/#thirdeye",
     cta: "Explore ThirdEye AI",
-    image: "/thirdeye-scene.png",
+    image: "/thirdeye-scene.webp",
+    width: 1086, height: 1448,
   },
   {
     eyebrow: "BirdEye AI · In development",
@@ -27,13 +29,18 @@ const slides = [
     copy: "Top-down camera review being developed to support line decisions in badminton and court sports.",
     href: "/products/#birdeye",
     cta: "Explore BirdEye AI",
-    image: "/birdeye-scene.png",
+    image: "/birdeye-scene.webp",
+    width: 1086, height: 1448,
   },
 ];
 export default function HeroCarousel() {
   const [current, setCurrent] = useState(0),
     [paused, setPaused] = useState(false);
   const [manualPause, setManualPause] = useState(false);
+  const [visited, setVisited] = useState<number[]>([0]);
+  useEffect(() => {
+    setVisited((items) => items.includes(current) ? items : [...items, current]);
+  }, [current]);
   useEffect(() => {
     if (
       paused ||
@@ -63,10 +70,16 @@ export default function HeroCarousel() {
         <div
           key={slide.eyebrow}
           className={`hero-slide${index === current ? " active" : ""}`}
-          style={{ "--hero-image": `url('${slide.image}')` } as CSSProperties}
           aria-hidden={index !== current}
           inert={index !== current}
         >
+          {(index === current || visited.includes(index)) && (
+            <img className="hero-slide-image" src={slide.image}
+              srcSet={`${slide.image.replace(".webp", "-720.webp")} 720w, ${slide.image} ${slide.width}w`}
+              sizes="100vw" width={slide.width} height={slide.height} alt=""
+              fetchPriority={index === 0 ? "high" : "low"}
+              loading="eager" decoding="async" />
+          )}
           <div className="hero-content">
             <div className="overline">{slide.eyebrow}</div>
             <h1>

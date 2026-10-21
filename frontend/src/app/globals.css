@@ -141,7 +141,7 @@ section {
   min-height: 690px;
   position: relative;
   color: white;
-  background: #071b29 url("/stadium.png") center 55% / cover no-repeat;
+  background: #071b29 url("/stadium.webp") center 55% / cover no-repeat;
   display: flex;
   align-items: center;
   padding: 90px clamp(24px, 7vw, 110px);
@@ -1561,3 +1561,14 @@ html {
 .brand img { width: 68px; height: 68px; border-radius: 50%; object-fit: contain; }
 .footer-brand img { width: 70px; height: 70px; padding: 0; background: transparent; border-radius: 50%; object-fit: contain; }
 @media (max-width: 760px) { .brand img { width: 56px; height: 56px; } }
+
+/* Wide brand lockup: preserve original proportions and remove duplicate text. */
+.brand { min-width: 0; }
+.brand img { width: 270px; height: auto; max-height: 64px; border-radius: 0; object-fit: contain; }
+.footer-brand img { width: 280px; height: auto; max-width: 100%; padding: 10px 12px; border-radius: 5px; background: #fff; object-fit: contain; }
+.hero.hero-carousel, .hero-slide { background-image: none; }
+.hero-slide-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.hero-slide::before { z-index: 1; }
+.hero-slide .hero-content { z-index: 2; }
+@media (max-width: 760px) { .brand img { width: 210px; height: auto; max-height: 54px; } }
+@media (max-width: 360px) { .brand img { width: 180px; } }

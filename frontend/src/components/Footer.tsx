@@ -22,8 +22,8 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-company">
             <Link href="/" className="footer-brand" aria-label="BSO AI Review home">
-              <img src="/bso-logo.webp" alt="BSO AI Review" width={256} height={256} />
-              <span>BSO AI REVIEW<br />PRIVATE LIMITED</span>
+              <img loading="lazy" decoding="async" src="/brand-logo-v3.webp" alt="BSO AI Review" width={720} height={157} />
+              
             </Link>
             <p>Bharat Sports Olymps connects players, competitions and recognition through a digital sports ecosystem.</p>
             <p className="footer-motto">Where recognition is earned — not bought.</p>

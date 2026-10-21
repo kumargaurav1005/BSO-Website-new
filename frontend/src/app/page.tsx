@@ -34,8 +34,8 @@ export default function HomePage() {
           </div>
           <div className="portfolio-grid">
             <a className="portfolio-feature" href="/products/#thirdeye">
-              <img
-                src="/thirdeye-scene.png"
+              <img srcSet="/thirdeye-scene-720.webp 720w, /thirdeye-scene.webp 1086w" sizes="(max-width: 760px) 100vw, 50vw" decoding="async" width={1086} height={1448}
+                src="/thirdeye-scene.webp"
                 alt="Cricket play recorded on a smartphone"
                 loading="lazy"
               />
@@ -47,8 +47,8 @@ export default function HomePage() {
             </a>
             <div className="portfolio-side">
               <a href="/products/#smartball">
-                <img
-                  src="/smartball-scene.png"
+                <img srcSet="/smartball-scene-720.webp 720w, /smartball-scene.webp 1086w" sizes="(max-width: 760px) 100vw, 50vw" decoding="async" width={1086} height={1448}
+                  src="/smartball-scene.webp"
                   alt="Cricket ball on a pitch"
                   loading="lazy"
                 />
@@ -58,8 +58,8 @@ export default function HomePage() {
                 </div>
               </a>
               <a href="/products/#birdeye">
-                <img
-                  src="/birdeye-scene.png"
+                <img srcSet="/birdeye-scene-720.webp 720w, /birdeye-scene.webp 1086w" sizes="(max-width: 760px) 100vw, 50vw" decoding="async" width={1086} height={1448}
+                  src="/birdeye-scene.webp"
                   alt="Badminton match viewed from above"
                   loading="lazy"
                 />
@@ -116,8 +116,8 @@ export default function HomePage() {
       </section>
       <section className="editorial-band">
         <div className="wrap editorial-layout">
-          <img
-            src="/stadium.png"
+          <img srcSet="/stadium-720.webp 720w, /stadium.webp 1600w" sizes="(max-width: 760px) 100vw, 50vw" decoding="async" width={1600} height={900}
+            src="/stadium.webp"
             alt="Cricket ground under lights"
             loading="lazy"
           />

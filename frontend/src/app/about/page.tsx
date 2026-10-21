@@ -10,7 +10,7 @@ export default function Page() {
         eyebrow="About us"
         title="Sport deserves a clearer path."
         description="Our work connects athlete recognition with the systems that can make competition more measurable and trustworthy."
-        image="/about-athletes.jpg"
+        image="/about-athletes.webp"
         imageAlt="Runners training outdoors at sunrise"
       />
       <section className="page-section wrap story-grid">
@@ -47,8 +47,8 @@ export default function Page() {
       </section>
       <section className="feature-band">
         <div className="wrap">
-          <img
-            src="/stadium.png"
+          <img srcSet="/stadium-720.webp 720w, /stadium.webp 1600w" sizes="(max-width: 760px) 100vw, 50vw" decoding="async" width={1600} height={900}
+            src="/stadium.webp"
             alt="Cricket ground under lights"
             loading="lazy"
           />

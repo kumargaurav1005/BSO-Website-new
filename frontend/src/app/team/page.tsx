@@ -10,7 +10,7 @@ export default function Page() {
         eyebrow="Our team"
         title="People behind the platform."
         description="A team working across grassroots sport, technology, operations and product design."
-        image="/team-collaboration.jpg"
+        image="/team-collaboration.webp"
         imageAlt="Illustrative stock photograph of people collaborating with laptops"
       />
       <section className="page-section wrap">
@@ -26,8 +26,8 @@ export default function Page() {
         </div>
         <div className="team-grid">
           <article className="person">
-            <img
-              src="/team-vikas.png"
+            <img srcSet="/team-vikas-720.webp 720w, /team-vikas.webp 1024w" sizes="(max-width: 760px) 100vw, 50vw" decoding="async" width={1024} height={1024}
+              src="/team-vikas.webp"
               alt="Portrait of Vikas Sharma"
               loading="lazy"
             />
@@ -38,8 +38,8 @@ export default function Page() {
             </div>
           </article>
           <article className="person">
-            <img
-              src="/team-harsh.jpg"
+            <img srcSet="/team-harsh-720.webp 720w, /team-harsh.webp 832w" sizes="(max-width: 760px) 100vw, 50vw" decoding="async" width={832} height={832}
+              src="/team-harsh.webp"
               alt="Portrait of Harsh Singhal"
               loading="lazy"
             />
@@ -50,8 +50,8 @@ export default function Page() {
             </div>
           </article>
           <article className="person">
-            <img
-              src="/team-aakash.png"
+            <img srcSet="/team-aakash-720.webp 720w, /team-aakash.webp 1024w" sizes="(max-width: 760px) 100vw, 50vw" decoding="async" width={1024} height={1024}
+              src="/team-aakash.webp"
               alt="Portrait of Aakash Singhal"
               loading="lazy"
             />
@@ -62,8 +62,8 @@ export default function Page() {
             </div>
           </article>
           <article className="person">
-            <img
-              src="/team-mayank.png"
+            <img srcSet="/team-mayank-720.webp 720w, /team-mayank.webp 1024w" sizes="(max-width: 760px) 100vw, 50vw" decoding="async" width={1024} height={1024}
+              src="/team-mayank.webp"
               alt="Portrait of Mayank Panchal"
               loading="lazy"
             />
@@ -74,8 +74,8 @@ export default function Page() {
             </div>
           </article>
           <article className="person">
-            <img
-              src="/team-abhishek.png"
+            <img srcSet="/team-abhishek-720.webp 720w, /team-abhishek.webp 1024w" sizes="(max-width: 760px) 100vw, 50vw" decoding="async" width={1024} height={1024}
+              src="/team-abhishek.webp"
               alt="Portrait of Abhishek Pundir"
               loading="lazy"
             />

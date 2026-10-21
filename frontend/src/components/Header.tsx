@@ -33,15 +33,13 @@ export default function Header() {
       className={`header${scrolled ? " is-scrolled" : ""}${hidden && !open ? " is-hidden" : ""}`}
     >
       <Link className="brand" href="/" aria-label="BSO AI Review home">
-        <img
-          src="/bso-logo.webp"
+        <img decoding="async"
+          src="/brand-logo-v3.webp"
           alt="BSO AI Review"
-          width={256}
-          height={256}
+          width={720}
+          height={157}
         />
-        <span className="brand-name">
-          BSO AI REVIEW<small>PRIVATE LIMITED</small>
-        </span>
+        
       </Link>
       <button
         className="menu-toggle"
