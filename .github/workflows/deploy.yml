@@ -56,33 +56,84 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           envs: GHCR_USER,GHCR_TOKEN
           script: |
-            set -e
+            set -eu
 
+            CONTAINER="bso-website"
+            IMAGE="ghcr.io/kumargaurav1005/bso-website:latest"
+
+            # Save the currently running image for rollback
+            OLD_IMAGE_ID=$(sudo docker inspect \
+              --format='{{.Image}}' "$CONTAINER")
+
+            # Login and pull the new image before replacing the container
             echo "$GHCR_TOKEN" | sudo docker login ghcr.io \
               -u "$GHCR_USER" --password-stdin
 
-            sudo docker pull ghcr.io/kumargaurav1005/bso-website:latest
+            sudo docker pull "$IMAGE"
 
-            sudo docker rm -f bso-website || true
+            # Replace the running container
+            sudo docker rm -f "$CONTAINER"
 
-            sudo docker run -d \
-              --name bso-website \
+            if ! sudo docker run -d \
+              --name "$CONTAINER" \
               --restart unless-stopped \
               --init \
               -p 127.0.0.1:3000:3000 \
-              ghcr.io/kumargaurav1005/bso-website:latest
+              "$IMAGE"; then
+
+              echo "New container failed to start; rolling back"
+
+              sudo docker rm -f "$CONTAINER" || true
+
+              sudo docker run -d \
+                --name "$CONTAINER" \
+                --restart unless-stopped \
+                --init \
+                -p 127.0.0.1:3000:3000 \
+                "$OLD_IMAGE_ID"
+
+              exit 1
+            fi
+
+            # Health check for up to 60 seconds
+            HEALTHY=0
 
             for i in $(seq 1 30); do
               if curl -fsS http://127.0.0.1:3000/ > /dev/null; then
-                echo "Website health check passed"
+                HEALTHY=1
                 break
               fi
-              if [ "$i" -eq 30 ]; then
-                echo "Website health check failed"
-                sudo docker logs --tail 100 bso-website
-                exit 1
-              fi
+
               sleep 2
             done
 
+            if [ "$HEALTHY" -ne 1 ]; then
+              echo "Health check failed; restoring previous image"
+
+              sudo docker logs --tail 100 "$CONTAINER" || true
+              sudo docker rm -f "$CONTAINER" || true
+
+              sudo docker run -d \
+                --name "$CONTAINER" \
+                --restart unless-stopped \
+                --init \
+                -p 127.0.0.1:3000:3000 \
+                "$OLD_IMAGE_ID"
+
+              # Verify the restored website
+              for i in $(seq 1 15); do
+                if curl -fsS http://127.0.0.1:3000/ > /dev/null; then
+                  echo "Rollback successful; previous image restored"
+                  exit 1
+                fi
+
+                sleep 2
+              done
+
+              echo "Rollback health check failed; manual recovery required"
+              sudo docker logs --tail 100 "$CONTAINER" || true
+              exit 1
+            fi
+
+            echo "Website health check passed"
             sudo docker logout ghcr.io || true
